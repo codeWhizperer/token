@@ -1,66 +1,38 @@
-## Foundry
+# MyToken Solidity Smart Contract
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Overview
+This Solidity smart contract, named MyToken, is designed to create and manage a basic ERC-20 token. The contract includes functionality for minting new tokens and burning existing tokens, along with storage for essential token details.
 
-Foundry consists of:
+## Token Details
+- **Name**: [Token Name]
+- **Symbol**: [Token Symbol]
+- **Total Supply**: [Initial Total Supply]
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Functions
 
-## Documentation
+### Mint
+The contract provides a `mint` function, allowing the creation of new tokens. This function takes two parameters: the recipient's address and the amount of tokens to be minted. The total supply is increased by the specified amount, and the recipient's balance is updated accordingly.
 
-https://book.getfoundry.sh/
+```solidity
+function mint(address _recipient, uint256 _amount) external
+```
+### Burn
+To reduce the total supply and eliminate existing tokens, the contract includes a burn function. Similar to the mint function, the burn function requires the recipient's address and the amount of tokens to be burned. The function checks if the sender's balance is sufficient before deducting the specified amount from both the total supply and the sender's balance.
 
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```solidity
+function burn(address _recipient, uint256 _amount) external
 ```
 
-### Test
+### Usage
+- Deploy the MyToken contract, providing the token name and symbol as constructor parameters.
+- Utilize the mint function to create new tokens, specifying the recipient's address and the amount to be minted.
+- Use the burn function to eliminate existing tokens, ensuring that the sender's balance is sufficient for the specified burn amount.
 
-```shell
-$ forge test
+### Example
+
+```solidity
+MyToken myToken = new MyToken("MyTokenName", "MTN");
+myToken.mint(address1, 1000);
+myToken.burn(address1, 500);
 ```
 
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
